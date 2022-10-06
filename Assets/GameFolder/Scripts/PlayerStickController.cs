@@ -13,7 +13,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable
 
 	private void Start()
 	{
-		transform.DOMoveZ(2, .2f).SetSpeedBased(true).SetDelay(1f);
+		//transform.DOMoveZ(2, .2f).SetSpeedBased(true).SetDelay(1f);
 	}
 
 	[Button]
@@ -24,41 +24,25 @@ public class PlayerStickController : MonoBehaviour, ISliceable
 	}
 
 	[Button]
-	public void IncreaseScale(float amount, Vector3 direction)
+	public void IncreaseScale(float amount)
 	{
-		transform.position += direction * amount / 2; // Move the object in the direction of scaling, so that the corner on ther side stays in place
-		transform.localScale += direction * amount; // Scale object in the specified direction
+		transform.localScale += amount * Vector3.right; // Scale object in the specified direction
 	}
 	[Button]
-	public void DecreaseScale(float amount, Vector3 direction)
+	public void DecreaseScale(Vector3 direction)
 	{
-		Debug.Log(direction.x);
-		Debug.Log(transform.position.x);
 
+		float amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
 
-		amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
-
-		if (direction.x > 0)
-			direction = Vector3.right;
-		else
-			direction = Vector3.left;
-
-		Debug.Log(amount);
+		//if the stick will be very small 
 		if (transform.localScale.x - amount < 0.1f)
 		{
 			transform.localScale = new Vector3(0.1f, transform.localScale.y, transform.localScale.z);
 			return;
 		}
 
-
-
-
-		Debug.Log(transform.localScale + "  1");
+		direction = direction.x > 0 ? Vector3.right : Vector3.left;
 		transform.localScale -= Vector3.right * amount;
-		Debug.Log(transform.localScale + "  2");
-
-		Debug.Log(transform.position + "  1");
 		transform.position -= direction * amount / 2;
-		Debug.Log(transform.position + "  2");
 	}
 }

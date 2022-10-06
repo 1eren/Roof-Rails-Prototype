@@ -12,10 +12,8 @@ public class Slicer : MonoBehaviour
 	{
 		if (!isTriggered && other.TryGetComponent(out ISliceable sliceable))
 		{
-			Debug.Log("sa");
 			isTriggered = true;
-			sliceable.DecreaseScale(1f, transform.position); // You can use Vector3.forward instead
+			sliceable.DecreaseScale(transform.position); 
 		}
 	}
-
 }

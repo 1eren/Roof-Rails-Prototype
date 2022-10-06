@@ -5,6 +5,6 @@ using UnityEngine;
 public interface ISliceable 
 {
     public Material SlicedMaterial { get; }
-    public void IncreaseScale(float amount, Vector3 direction);
-    public void DecreaseScale(float amount, Vector3 direction);
+    public void IncreaseScale(float amount);
+    public void DecreaseScale(Vector3 direction);
 }
