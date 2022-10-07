@@ -7,7 +7,6 @@ using Sirenix.OdinInspector;
 
 public class LevelManager : Singleton<LevelManager>
 {
-
     [HideInInspector]
     public UnityEvent OnLevelStart = new UnityEvent();
     [HideInInspector]
@@ -28,7 +27,6 @@ public class LevelManager : Singleton<LevelManager>
     {
         FinishLevel();
     }
-
 
     public void LoadLastLevel()
     {

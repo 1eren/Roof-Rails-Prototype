@@ -5,6 +5,5 @@ using UnityEngine;
 public interface IPoolable 
 {
     void Initilize();
-
     void Dispose();
 }

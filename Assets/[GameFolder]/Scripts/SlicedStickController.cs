@@ -16,7 +16,6 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 	public void Throw(float force, Vector3 direction)
 	{
 		rb = GetComponent<Rigidbody>();
-
 		rb.AddForce(direction * force, ForceMode.Impulse);
 
 		if (TryGetComponent(out PoolObject pool))

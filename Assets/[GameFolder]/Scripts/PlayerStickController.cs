@@ -6,7 +6,7 @@ using System.IO;
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerStickController : MonoBehaviour, ISliceable
+public class PlayerStickController : MonoBehaviour, ISliceable,IThrowable
 {
 	private Tween resetPositionTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
@@ -16,6 +16,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable
 	}
 	public void DecreaseScale(Vector3 direction)
 	{
+		//finding difference and required scale for slicing
 		float amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
 
 		CreateNewPart(amount, new Vector3(direction.x, transform.position.y, transform.position.z));
@@ -25,8 +26,9 @@ public class PlayerStickController : MonoBehaviour, ISliceable
 			transform.localScale = new Vector3(minimumStickScale, transform.localScale.y, transform.localScale.z);
 			return;
 		}
+		//find out if the obstacle is on the right or left 
+		Vector3 roundedValue = direction.x > transform.position.x ? Vector3.right : Vector3.left;
 
-		Vector3 roundedValue = direction.x > 0 ? Vector3.right : Vector3.left;
 		transform.localScale -= Vector3.right * amount;
 		transform.position -= roundedValue * amount / 2;
 	}
@@ -46,5 +48,10 @@ public class PlayerStickController : MonoBehaviour, ISliceable
 		resetPositionTween = transform.DOLocalMoveX(0, .5f).SetDelay(.5f);
 
 		newPart.GetComponent<IThrowable>().Throw(10, transform.position - hitPoint);
+	}
+
+	public void Throw(float force, Vector3 direction)
+	{
+		throw new NotImplementedException();
 	}
 }
