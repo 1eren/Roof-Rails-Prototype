@@ -18,7 +18,11 @@ public class LevelManager : Singleton<LevelManager>
     [ShowInInspector]
     public bool IsLevelStarted { get { return isLevelStarted; } set { isLevelStarted = value; } }
 
-
+    private void Update()
+    {
+        if (!IsLevelStarted && Input.GetMouseButtonUp(0))
+            StartLevel();
+    }
     [Button]
     public void ReloadLevel()
     {

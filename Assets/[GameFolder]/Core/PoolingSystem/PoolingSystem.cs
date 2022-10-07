@@ -10,6 +10,7 @@ public class SourceObjects
 	public string ID;
 
 	public GameObject SourcePrefab;
+
 	//If 0 will use the global object count
 	public int MinNumberOfObject = 0;
 	public bool AllowGrow = true;
@@ -22,9 +23,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 {
 	public List<SourceObjects> SourceObjects = new List<SourceObjects>();
 
-	private List<AudioSource> pooledAudioSources = new List<AudioSource>();
-
-
 	public int DefaultCount = 10;
 
 	[HideInInspector] public Vector3 initScale;
@@ -36,7 +34,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 	public void InitilizePool()
 	{
 		InitilizeGameObjects();
-		InitilizeAudioSources();
 	}
 
 	private void InitilizeGameObjects()
@@ -59,25 +56,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 		}
 	}
 
-	private void InitilizeAudioSources()
-	{
-		GameObject audioHolder = new GameObject();
-		audioHolder.name = "AudioHolder";
-		audioHolder.transform.SetParent(transform);
-		audioHolder.transform.position = Vector3.zero;
-
-		for (int i = 0; i < 20; i++)
-		{
-			GameObject go = new GameObject();
-			go.name = "PooledSource";
-			go.transform.position = Vector3.zero;
-			go.transform.SetParent(audioHolder.transform);
-			AudioSource audioSource = go.AddComponent<AudioSource>();
-			audioSource.playOnAwake = false;
-			audioSource.loop = false;
-			pooledAudioSources.Add(audioSource);
-		}
-	}
 
 	public GameObject InstantiateAPS(string Id)
 	{
@@ -127,7 +105,7 @@ public class PoolingSystem : Singleton<PoolingSystem>
 		else
 			return null;
 	}
-
+	
 	public GameObject InstantiateAPS(string iD, Vector3 position, Quaternion rotation)
 	{
 		GameObject go = InstantiateAPS(iD);
@@ -176,26 +154,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 		}
 		else
 			return null;
-	}
-
-	public AudioSource GetAudioSource()
-	{
-		for (int i = 0; i < pooledAudioSources.Count; i++)
-		{
-			if (!pooledAudioSources[i].isPlaying)
-				return pooledAudioSources[i];
-		}
-
-		Transform audioHolder = transform.Find("AudioHolder");
-		GameObject go = new GameObject();
-		go.name = "PooledSource";
-		go.transform.position = Vector3.zero;
-		go.transform.SetParent(audioHolder);
-		AudioSource audioSource = go.AddComponent<AudioSource>();
-		audioSource.playOnAwake = false;
-		audioSource.loop = false;
-		pooledAudioSources.Add(audioSource);
-		return audioSource;
 	}
 
 	public void DestroyAPS(GameObject clone)
