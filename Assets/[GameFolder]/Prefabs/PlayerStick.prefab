@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5177533697672171724}
   - component: {fileID: 6935187453696123910}
   - component: {fileID: 8646675572591196360}
-  - component: {fileID: 8646675572591196358}
   - component: {fileID: 8646675572591196361}
   m_Layer: 0
   m_Name: PlayerStick
@@ -102,19 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &8646675572591196358
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8880606221168674259}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 0.19635668, z: 0.19635656}
-  m_Center: {x: 0.025329292, y: 0.000000014901161, z: 0.00000001490298}
 --- !u!114 &8646675572591196361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,4 +113,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2292dbd5ea8ac5f41b8abdc313631205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slicedMaterial: {fileID: 2100000, guid: 6c4317a5f16634d46a69a9d76d410573, type: 2}
+  minimumStickScale: 0.1

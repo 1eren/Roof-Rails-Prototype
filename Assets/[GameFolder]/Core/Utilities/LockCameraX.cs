@@ -6,8 +6,7 @@ using Cinemachine;
 /// </summary>
 [ExecuteInEditMode]
 [SaveDuringPlay]
-[AddComponentMenu("")] // Hide in menu
-public class LockCameraZ : CinemachineExtension
+public class LockCameraX : CinemachineExtension
 {
     [Tooltip("Lock the camera's X position to this value")]
     private float m_XPosition = 0;

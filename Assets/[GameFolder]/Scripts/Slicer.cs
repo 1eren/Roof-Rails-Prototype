@@ -8,22 +8,22 @@ using Sirenix.OdinInspector;
 public class Slicer : MonoBehaviour
 {
 	[SerializeField] private bool isTriggered;
-	private void OnCollisionEnter(Collision collision)
+	//private void OnCollisionEnter(Collision collision)
+	//{
+	//	if (!isTriggered && collision.gameObject.TryGetComponent(out ISliceable sliceable))
+	//	{
+	//		GetComponent<Collider>().enabled = false;
+	//		isTriggered = true;
+	//		sliceable.DecreaseScale(transform.position);
+	//	}
+	//}
+	private void OnTriggerEnter(Collider other)
 	{
-		if (!isTriggered && collision.gameObject.TryGetComponent(out ISliceable sliceable))
+		if (!isTriggered && other.TryGetComponent(out ISliceable sliceable))
 		{
 			GetComponent<Collider>().enabled = false;
 			isTriggered = true;
 			sliceable.DecreaseScale(transform.position);
 		}
 	}
-	//private void OnTriggerEnter(Collider other)
-	//{
-	//	if (!isTriggered && other.TryGetComponent(out ISliceable sliceable))
-	//	{
-	//		GetComponent<Collider>().enabled = false;
-	//		isTriggered = true;
-	//		sliceable.DecreaseScale(transform.position); 
-	//	}
-	//}
 }

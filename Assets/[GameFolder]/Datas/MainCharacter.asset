@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914ab5fc839220542a2e38747e30df90, type: 3}
   m_Name: MainCharacter
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   swerveSpeed: 0.1
   clampMovement: 0.3
