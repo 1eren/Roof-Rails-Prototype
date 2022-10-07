@@ -13,10 +13,10 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
 	}
-	public void Throw(float force, Vector3 direction)
+	public void Throw(Vector3 force)
 	{
 		rb = GetComponent<Rigidbody>();
-		rb.AddForce(direction * force, ForceMode.Impulse);
+		rb.AddForce(force, ForceMode.Impulse);
 
 		if (TryGetComponent(out PoolObject pool))
 			Run.After(destroyingDelay, () => PoolingSystem.Instance.DestroyAPS(gameObject));

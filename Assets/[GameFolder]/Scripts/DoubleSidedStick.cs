@@ -24,7 +24,7 @@ public class DoubleSidedStick : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.TryGetComponent(out PlayerStickController player))
+        if(collision.gameObject.TryGetComponent(out CharacterAnimationController player))
         {
             Debug.Log("sa");
         }
