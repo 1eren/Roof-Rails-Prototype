@@ -12,7 +12,8 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	[SerializeField] private float minimumStickScale = 0.1f;
 	public void IncreaseScale(float amount)
 	{
-		transform.localScale += amount * Vector3.right;
+		transform.DOComplete(); // complete tween if is still scaling
+		transform.DOScale(transform.localScale + amount * Vector3.right, 0.1f);
 	}
 	public void DecreaseScale(Vector3 direction)
 	{

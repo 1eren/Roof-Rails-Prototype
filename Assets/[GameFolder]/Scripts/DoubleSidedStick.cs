@@ -26,7 +26,14 @@ public class DoubleSidedStick : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent(out CharacterAnimationController player))
         {
-            Debug.Log("sa");
+            player.Hold();
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out CharacterAnimationController player))
+        {
+            player.Run();
         }
     }
 }

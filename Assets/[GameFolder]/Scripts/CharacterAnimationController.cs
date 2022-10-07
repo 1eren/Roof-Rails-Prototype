@@ -16,5 +16,12 @@ public class CharacterAnimationController : MonoBehaviour
         if (LevelManager.Instance == null) return;
         LevelManager.Instance.OnLevelStart.RemoveListener(()=>Anim.SetTrigger("HoldingRun"));
     }
-
+    public void Hold()
+    {
+        Anim.SetTrigger("HoldingIdle");
+    }
+    public void Run()
+    {
+        Anim.SetTrigger("HoldingRun");
+    }
 }
