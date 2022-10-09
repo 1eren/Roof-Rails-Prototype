@@ -8,5 +8,4 @@ public class MovementData : ScriptableObject
 {
 	public float speed = 5f;
 	public float swerveSpeed = 1f;
-	public float clampMovement = 3f;
 }

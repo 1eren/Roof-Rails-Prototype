@@ -10,6 +10,8 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
 	private Tween resetPositionTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
+
+	public float StickSize => transform.localScale.x;
 	public void IncreaseScale(float amount)
 	{
 		transform.DOComplete(); // complete tween if is still scaling

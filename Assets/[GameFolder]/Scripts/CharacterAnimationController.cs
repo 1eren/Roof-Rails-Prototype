@@ -9,7 +9,7 @@ public class CharacterAnimationController : MonoBehaviour
     private void OnEnable()
     {
         if (LevelManager.Instance == null) return;
-        LevelManager.Instance.OnLevelStart.AddListener(()=>Anim.SetTrigger("HoldingRun"));
+        LevelManager.Instance.OnLevelStart.AddListener(() => Anim.SetTrigger("HoldingRun"));
     }
     private void OnDisable()
     {

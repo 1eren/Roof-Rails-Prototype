@@ -4,16 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMover : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
 	private SplineFollower follower;
-	public SplineFollower Follower => follower == null ? follower = GetComponent<SplineFollower>() : follower;
+	public SplineFollower Follower => follower == null ? follower = GetComponentInParent<SplineFollower>() : follower;
 
 	private SwerveController swerve;
 
 	private float offSetX;
+	public float clampX =0.3f;
 	[InlineEditor]
 	public MovementData moveData;
+
 	private bool isGameStarted;
 
 	private void Start()
@@ -47,7 +49,7 @@ public class CharacterMover : MonoBehaviour
 		
 		offSetX = Follower.motion.offset.x;
 		offSetX += swerve.GetDirection().x * moveData.swerveSpeed;
-		offSetX = Mathf.Clamp(offSetX, -moveData.clampMovement, moveData.clampMovement);
+		offSetX = Mathf.Clamp(offSetX, -clampX, clampX);
 		Follower.motion.offset = new Vector2(offSetX, Follower.motion.offset.y);
 	}
 }
