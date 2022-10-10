@@ -1,3 +1,4 @@
+using Cinemachine;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,20 +10,18 @@ public class PlayerController : MonoBehaviour
     [ReadOnly]public bool isDeath;
 
     public bool isHolding;
+
     private void OnEnable()
     {
-        if (LevelManager.Instance == null)
-            return;
-        EventManager.OnFailEvent.AddListener(Fall);
+        GameManager.Instance.FallEvent.AddListener(Fall);
     }
     private void OnDisable()
     {
-        if (LevelManager.Instance == null)
-            return;
-        EventManager.OnFailEvent.RemoveListener(Fall);
+        GameManager.Instance.FallEvent.RemoveListener(Fall);
     }
     public void Hold()
     {
+        GetComponent<CharacterAnimationController>().Hold();
         isHolding = true;
     }
     public void Run()
@@ -33,7 +32,6 @@ public class PlayerController : MonoBehaviour
     public void Fall()
     {
         isDeath = true;
-       
-        Debug.Log("faiiil");
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
     }
 }

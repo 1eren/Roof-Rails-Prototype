@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class TagLayerKeys
 {
-	public static readonly string PlayerStick = "PlayerStick";
+	public static readonly string PLAYER_STICK = "PlayerStick";
 }

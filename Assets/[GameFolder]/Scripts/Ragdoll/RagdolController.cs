@@ -10,15 +10,11 @@ public class RagdolController : RagdollBase
 	}
 	private void OnEnable()
 	{
-		if (LevelManager.Instance == null)
-			return;
-		EventManager.OnFailEvent.AddListener(OnFailed);
+		GameManager.Instance.FallEvent.AddListener(OnFailed);
 	}
 	private void OnDisable()
 	{
-		if (LevelManager.Instance == null)
-			return;
-		EventManager.OnFailEvent.AddListener(OnFailed);
+		GameManager.Instance.FallEvent.RemoveListener(OnFailed);
 	}
 
 	public void FreeFall()
@@ -33,6 +29,6 @@ public class RagdolController : RagdollBase
 
 	public void OnFailed()
 	{
-		RagdollWithForce(transform.forward, 8f);
+		Run.After(0.5f, ()=>RagdollWithForce(transform.forward, 3f));
 	}
 }

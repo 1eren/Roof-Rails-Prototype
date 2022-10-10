@@ -26,4 +26,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 			return _instance;
 		}
 	}
+
+	private static bool applicationIsQuitting = false;
+
+	public void OnDestroy()
+	{
+		applicationIsQuitting = true;
+	}
 }

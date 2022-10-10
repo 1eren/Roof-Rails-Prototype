@@ -8,11 +8,11 @@ public class CollectableStick : MonoBehaviour
 	private bool isTriggered;
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!isTriggered && other.TryGetComponent(out ISliceable sliceable))
+		if (!isTriggered && other.TryGetComponent(out PlayerController player))
 		{
 			gameObject.SetActive(false);
 			isTriggered = true;
-			sliceable.IncreaseScale(increasingScale);
+			player.GetComponentInChildren<ISliceable>().IncreaseScale(increasingScale);
 		}
 	}
 }

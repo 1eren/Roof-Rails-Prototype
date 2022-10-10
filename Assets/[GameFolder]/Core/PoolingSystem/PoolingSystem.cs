@@ -158,9 +158,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 
 	public void DestroyAPS(GameObject clone)
 	{
-		clone.transform.position = transform.position;
-		clone.transform.rotation = transform.rotation;
-		clone.transform.SetParent(transform);
 		IPoolable poolable = clone.GetComponent<IPoolable>();
 		if (poolable != null)
 			poolable.Dispose();

@@ -17,30 +17,28 @@ public class MovementController : MonoBehaviour
 	public MovementData moveData;
 
 	private bool isGameStarted;
-
-	private void Start()
+	
+	private void OnEnable()
 	{
 		swerve = FindObjectOfType<SwerveController>();
 		Follower.followSpeed = 0f;
-	}
-
-	private void OnEnable()
-	{
-		if (LevelManager.Instance == null)
-			return;
-		LevelManager.Instance.OnLevelStart.AddListener(() => {
-			Follower.followSpeed = moveData.speed;
-			isGameStarted = true;
-		});	
-	}
-	private void OnDisable()
-	{
-		if (LevelManager.Instance == null)
-			return;
-		LevelManager.Instance.OnLevelStart.RemoveListener(() => {
+	
+		LevelManager.Instance.LevelStartEvent.AddListener(() => {
 			Follower.followSpeed = moveData.speed;
 			isGameStarted = true;
 		});
+		GameManager.Instance.WinEvent.AddListener(StopMovement);
+		GameManager.Instance.FallEvent.AddListener(StopMovement);
+	}
+	private void OnDisable()
+	{
+		LevelManager.Instance.LevelStartEvent.RemoveListener(() =>
+		{
+			Follower.followSpeed = moveData.speed;
+			isGameStarted = true;
+		});
+		GameManager.Instance.WinEvent.RemoveListener(StopMovement);
+		GameManager.Instance.FallEvent.RemoveListener( () => Follower.follow = false);
 	}
 	private void Update()
 	{
@@ -51,5 +49,9 @@ public class MovementController : MonoBehaviour
 		offSetX += swerve.GetDirection().x * moveData.swerveSpeed;
 		offSetX = Mathf.Clamp(offSetX, -clampX, clampX);
 		Follower.motion.offset = new Vector2(offSetX, Follower.motion.offset.y);
+	}
+	private void StopMovement()
+	{
+		Follower.follow = false;
 	}
 }

@@ -1,17 +1,21 @@
-using Sirenix.OdinInspector;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using DG.Tweening;
+using System.Security.Cryptography;
 
 public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
 	private Tween resetPositionTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
-
 	public float StickSize => transform.localScale.x;
+
+	private void OnEnable()
+	{
+		GameManager.Instance.FallEvent.AddListener(Fail);
+	}
+	private void OnDisable()
+	{
+		GameManager.Instance.FallEvent.RemoveListener(Fail);
+	}
 	public void IncreaseScale(float amount)
 	{
 		transform.DOComplete(); // complete tween if is still scaling
@@ -52,8 +56,15 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		newPart.GetComponent<IThrowable>().Throw(Vector3.Normalize(hitPoint - transform.position + Vector3.up) * 2f);
 	}
 
+	private void Fail()
+	{
+		transform.parent = null;
+		Throw(new Vector3(0.3f, 50, Random.Range(-4f, 4f)));
+	}
 	public void Throw(Vector3 force)
 	{
-		throw new NotImplementedException();
+		Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+		rb.AddForce(force);
+		GetComponent<CapsuleCollider>().height *= 0.95f;
 	}
 }

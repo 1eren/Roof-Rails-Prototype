@@ -2,7 +2,7 @@
 
 public static class PlayerPrefKeys
 {
-    public static readonly string LastLevel = "LastLevel";
-    public static readonly string FakeLevel = "FakeLevel";
-    public static readonly string IsLooping = "IsLooping";
+    public static readonly string LAST_LEVEL = "LastLevel";
+    public static readonly string FAKE_LEVEL = "FakeLevel";
+    public static readonly string IS_LOOPING = "IsLooping";
 }

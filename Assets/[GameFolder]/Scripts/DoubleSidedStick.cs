@@ -22,6 +22,22 @@ public class DoubleSidedStick : MonoBehaviour
 		}
 	}
 
+	private void CheckStickSize(Transform playerT)
+	{
+		var stick = playerT.GetComponentInChildren<PlayerStickController>();
+
+		if (stick.StickSize < distanceBetween * 2)
+			GameManager.Instance.FallEvent.Invoke();
+
+		float playerPosX = playerT.position.x;
+		if (playerPosX > transform.position.x + distanceBetween
+			|| playerPosX < transform.position.x - distanceBetween)
+		{
+			GameManager.Instance.FallEvent.Invoke();
+			foreach (var item in GetComponentsInChildren<BoxCollider>())
+				item.enabled = false;
+		}
+	}
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.TryGetComponent(out PlayerController player))
@@ -29,18 +45,8 @@ public class DoubleSidedStick : MonoBehaviour
 			if (player.isHolding && player.isDeath)
 				return;
 			player.Hold();
-			var stick = player.GetComponentInChildren<PlayerStickController>();
-			if (stick.StickSize < distanceBetween * 2)
-				EventManager.OnFailEvent.Invoke();
 
-			if(player.transform.position.x > transform.position.x + distanceBetween/2
-				|| player.transform.position.x < transform.position.x - distanceBetween / 2)
-			{
-				EventManager.OnFailEvent.Invoke();
-				Debug.Log("Fail");
-				foreach (var item in GetComponentsInChildren<Collider>())
-					item.enabled = false;
-			}
+			CheckStickSize(player.transform);
 		}
 	}
 	private void OnCollisionExit(Collision collision)
@@ -52,14 +58,15 @@ public class DoubleSidedStick : MonoBehaviour
 			var stick = player.GetComponentInChildren<PlayerStickController>();
 
 			if (stick.transform.position.z + 0.2f >= transform.position.z + scale / 2f)
-				player.Run();
-
-			else
 			{
-				EventManager.OnFailEvent.Invoke();
-				foreach (var item in GetComponentsInChildren<Collider>())
-					item.enabled = false;
+				player.Run();
+				return;
 			}
+
+			GameManager.Instance.FallEvent.Invoke();
+			foreach (var item in GetComponentsInChildren<BoxCollider>())
+				item.enabled = false;
 		}
 	}
+
 }

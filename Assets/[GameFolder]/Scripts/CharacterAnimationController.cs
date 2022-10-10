@@ -8,20 +8,24 @@ public class CharacterAnimationController : MonoBehaviour
     public Animator Anim => anim == null ? anim = GetComponent<Animator>() : anim;
     private void OnEnable()
     {
-        if (LevelManager.Instance == null) return;
-        LevelManager.Instance.OnLevelStart.AddListener(() => Anim.SetTrigger("HoldingRun"));
+        LevelManager.Instance.LevelStartEvent.AddListener(Run);
+        GameManager.Instance.WinEvent.AddListener(Dance);
     }
     private void OnDisable()
     {
-        if (LevelManager.Instance == null) return;
-        LevelManager.Instance.OnLevelStart.RemoveListener(()=>Anim.SetTrigger("HoldingRun"));
+        LevelManager.Instance.LevelStartEvent.RemoveListener(Run);
+        GameManager.Instance.WinEvent.RemoveListener(Dance);
     }
     public void Hold()
     {
-        Anim.SetTrigger("HoldingIdle");
+        Anim.SetTrigger(AnimationKeys.HOLD_ANIMATION);
     }
     public void Run()
     {
-        Anim.SetTrigger("HoldingRun");
+        Anim.SetTrigger(AnimationKeys.RUN_ANIMATION);
+    }
+    public void Dance()
+    {
+        Anim.SetTrigger(AnimationKeys.DANCE_ANIMATION);
     }
 }

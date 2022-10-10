@@ -7,6 +7,7 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 {
 	[SerializeField] private float destroyingDelay = 3;
 	private Rigidbody rb;
+	
 	private void OnDisable()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -15,7 +16,6 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 	}
 	public void Throw(Vector3 force)
 	{
-		rb = GetComponent<Rigidbody>();
 		rb.AddForce(force, ForceMode.Impulse);
 
 		if (TryGetComponent(out PoolObject pool))
