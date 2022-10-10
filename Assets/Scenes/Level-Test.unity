@@ -8113,6 +8113,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1063164129}
     - target: {fileID: 2122499692, guid: 49ae66ef0094386478aa67a622575cc4, type: 3}
+      propertyPath: isControllable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122499692, guid: 49ae66ef0094386478aa67a622575cc4, type: 3}
       propertyPath: splineFollower
       value: 
       objectReference: {fileID: 8040782392126871575}
