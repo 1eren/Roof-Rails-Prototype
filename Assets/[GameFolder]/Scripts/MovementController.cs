@@ -24,14 +24,20 @@ public class MovementController : MonoBehaviour, IInputListener
 		Initialize();
 
 		LevelManager.Instance.LevelStartEvent.AddListener(OnLevelStarted);
-		LevelManager.Instance.LevelFinishEvent.AddListener(OnLevelFinished);
+
+		GameManager.Instance.FallEvent.AddListener(FallPlayer);
+		GameManager.Instance.WinEvent.AddListener(StopPlayer);
+
 		EventManager.OnEnteredRail.AddListener(MoveOnRail);
 		EventManager.OnExitRail.AddListener(ResetClamp);
 	}
 	private void OnDisable()
 	{
 		LevelManager.Instance.LevelStartEvent.RemoveListener(OnLevelStarted);
-		LevelManager.Instance.LevelFinishEvent.RemoveListener(OnLevelFinished);
+
+		GameManager.Instance.FallEvent.RemoveListener(FallPlayer);
+		GameManager.Instance.WinEvent.AddListener(StopPlayer);
+
 		EventManager.OnEnteredRail.RemoveListener(MoveOnRail);
 		EventManager.OnExitRail.RemoveListener(ResetClamp);
 
@@ -54,16 +60,20 @@ public class MovementController : MonoBehaviour, IInputListener
 		splineFollower.followSpeed = forwardSpeed;
 	}
 
-	private void OnLevelFinished()
+	private void FallPlayer()
 	{
-		Debug.Log("sa");
+		Run.After(1,()=> splineFollower.follow = false);
+		isControllable = false;
+	}
+	private void StopPlayer()
+	{
 		splineFollower.follow = false;
 		isControllable = false;
 	}
 	public void MoveOnRail(RailController rail)
 	{
-		xClampMin = rail.transform.localPosition.x - rail.distanceBetween + 0.4f;
-		xClampMax = rail.transform.localPosition.x + rail.distanceBetween - 0.4f;
+		xClampMin = rail.transform.position.x - rail.distanceBetween + 0.4f;//added 0.4 because player's localscale
+		xClampMax = rail.transform.position.x + rail.distanceBetween - 0.4f;
 	}
 	public void ResetClamp(RailController rail)
 	{
@@ -72,6 +82,8 @@ public class MovementController : MonoBehaviour, IInputListener
 	}
 	public void OnSlide(SlideData data)
 	{
+		if (!isControllable)
+			return;
 		var newLocalPosition = mainBody.localPosition + Vector3.right * data.delta.x * horizontalSpeed * Time.deltaTime;
 		newLocalPosition.x = Mathf.Clamp(newLocalPosition.x, xClampMin, xClampMax);
 		mainBody.localPosition = newLocalPosition;

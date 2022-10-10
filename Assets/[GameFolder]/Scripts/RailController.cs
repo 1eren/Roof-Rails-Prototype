@@ -29,11 +29,13 @@ public class RailController : MonoBehaviour
 	private void CheckStickSize(Transform playerT)
 	{
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
-		EventManager.OnEnteredRail.Invoke(this);
 
 		if (stick.StickSize < distanceBetween * 2)
 		{
-			GameManager.Instance.FallEvent.Invoke();
+			if (!isFinishStick)
+				GameManager.Instance.FallEvent.Invoke();
+			foreach (var item in GetComponentsInChildren<BoxCollider>())
+				item.enabled = false;
 			return;
 		}
 
@@ -41,11 +43,13 @@ public class RailController : MonoBehaviour
 		if (playerPosX > transform.position.x + distanceBetween
 			|| playerPosX < transform.position.x - distanceBetween)
 		{
-			GameManager.Instance.FallEvent.Invoke();
+			if(!isFinishStick)
+				GameManager.Instance.FallEvent.Invoke();
 			foreach (var item in GetComponentsInChildren<BoxCollider>())
 				item.enabled = false;
 			return;
 		}
+		EventManager.OnEnteredRail.Invoke(this);
 
 	}
 	private void OnCollisionEnter(Collision collision)
