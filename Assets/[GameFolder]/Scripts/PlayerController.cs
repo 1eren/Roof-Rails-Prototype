@@ -1,7 +1,6 @@
 using Cinemachine;
 using Sirenix.OdinInspector;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour

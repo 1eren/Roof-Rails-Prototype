@@ -1,9 +1,5 @@
 using Dreamteck.Splines;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour, IInputListener
@@ -80,7 +76,7 @@ public class MovementController : MonoBehaviour, IInputListener
 		xClampMin = xClampMinInit;
 		xClampMax = xClampMaxInit;
 	}
-	public void OnSlide(SlideData data)
+	public void OnSlide(SlideMoveData data)
 	{
 		if (!isControllable)
 			return;

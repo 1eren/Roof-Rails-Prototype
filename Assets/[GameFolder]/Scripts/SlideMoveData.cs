@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-[System.Serializable]
-public struct SlideData 
+public struct SlideMoveData 
 {
     public Vector2 movement;
     public Vector2 normalizedMovement;

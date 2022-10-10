@@ -56,9 +56,9 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public SlideData SendSlide()
+    public SlideMoveData SendSlide()
     {
-        return new SlideData()
+        return new SlideMoveData()
         {
             movement = Movement,
             normalizedMovement = Vector3.Normalize(Movement),

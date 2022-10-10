@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IInputListener
 {
-    void OnSlide(SlideData data);
+    void OnSlide(SlideMoveData data);
 }
