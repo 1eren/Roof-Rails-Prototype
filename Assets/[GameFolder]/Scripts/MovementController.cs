@@ -9,9 +9,7 @@ public class MovementController : MonoBehaviour, IInputListener
 	public InputManager inputManager;
 	public SplineFollower splineFollower;
 	public Transform mainBody;
-	public float horizontalSpeed = 1f, forwardSpeed = 5f;
-
-	public float xClampMin, xClampMax;
+	public PlayerMoveData moveData;
 
 	private float xClampMinInit, xClampMaxInit;
 	[ReadOnly] public bool isControllable = true;
@@ -41,8 +39,8 @@ public class MovementController : MonoBehaviour, IInputListener
 	private void Initialize()
 	{
 		splineFollower.follow = false;
-		xClampMinInit = xClampMin;
-		xClampMaxInit = xClampMax;
+		xClampMinInit = moveData.xClampMin;
+		xClampMaxInit = moveData.xClampMax;
 	}
 	private void Update()
 	{
@@ -53,12 +51,12 @@ public class MovementController : MonoBehaviour, IInputListener
 	private void OnLevelStarted()
 	{
 		splineFollower.follow = true;
-		splineFollower.followSpeed = forwardSpeed;
+		splineFollower.followSpeed = moveData.forwardSpeed;
 	}
 
 	private void FallPlayer()
 	{
-		Run.After(1,()=> splineFollower.follow = false);
+		Run.After(1, () => splineFollower.follow = false);
 		isControllable = false;
 	}
 	private void StopPlayer()
@@ -68,20 +66,21 @@ public class MovementController : MonoBehaviour, IInputListener
 	}
 	public void MoveOnRail(RailController rail)
 	{
-		xClampMin = rail.transform.position.x - rail.distanceBetween + 0.4f;//added 0.4 because player's localscale
-		xClampMax = rail.transform.position.x + rail.distanceBetween - 0.4f;
+		splineFollower.followSpeed += rail.speedIncrease;
+		xClampMinInit = rail.transform.position.x - rail.distanceBetween + 0.4f;//added 0.4 because player's localscale
+		xClampMaxInit = rail.transform.position.x + rail.distanceBetween - 0.4f;
 	}
 	public void ResetClamp(RailController rail)
 	{
-		xClampMin = xClampMinInit;
-		xClampMax = xClampMaxInit;
+		xClampMinInit = moveData.xClampMin;
+		xClampMaxInit = moveData.xClampMax;
 	}
 	public void OnSlide(SlideMoveData data)
 	{
 		if (!isControllable)
 			return;
-		var newLocalPosition = mainBody.localPosition + Vector3.right * data.delta.x * horizontalSpeed * Time.deltaTime;
-		newLocalPosition.x = Mathf.Clamp(newLocalPosition.x, xClampMin, xClampMax);
+		var newLocalPosition = mainBody.localPosition + Vector3.right * data.delta.x * moveData.horizontalSpeed * Time.deltaTime;
+		newLocalPosition.x = Mathf.Clamp(newLocalPosition.x, xClampMinInit, xClampMaxInit);
 		mainBody.localPosition = newLocalPosition;
 	}
 }

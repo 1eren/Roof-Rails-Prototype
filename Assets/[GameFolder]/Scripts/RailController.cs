@@ -7,7 +7,7 @@ public class RailController : MonoBehaviour
 	[Range(0, 10)] public float distanceBetween = 1f;
 	[Range(2, 30)] public float scale = 1f;
 
-	[SerializeField] private float speedIncrease;
+	[SerializeField] public float speedIncrease;
 	public bool isFinishStick;
 	//distance and scale will be updated instantly when the distance& scale changes on inspector
 	private void SetSticksAttributes()

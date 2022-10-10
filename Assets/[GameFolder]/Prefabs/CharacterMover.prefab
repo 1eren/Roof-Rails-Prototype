@@ -413,13 +413,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
-  splineFollower: {fileID: 0}
-  mainBody: {fileID: 0}
-  horizontalSpeed: 1
+  splineFollower: {fileID: 6450258958453890840}
+  mainBody: {fileID: 7501907941067615190}
+  horizontalSpeed: 2
   forwardSpeed: 5
-  xClampMin: 0
-  xClampMax: 0
-  isControllable: 0
+  xClampMin: -3
+  xClampMax: 3
+  isControllable: 1
 --- !u!4 &7501907941067615190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1449462525326737089, guid: 034875f95bfe7444887291de33fb4b52, type: 3}
