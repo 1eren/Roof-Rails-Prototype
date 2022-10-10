@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8040782392710147020}
-  - component: {fileID: 8040782392710147023}
+  - component: {fileID: 6450258958453890840}
   m_Layer: 0
   m_Name: CharacterMover
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0.039, z: 0}
---- !u!114 &8040782392710147023
+--- !u!114 &6450258958453890840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,61 +64,61 @@ MonoBehaviour:
     samples:
     - position: {x: 0, y: 0, z: -5.6595144}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0
-    - position: {x: 0.012894524, y: 0, z: 13.520837}
+    - position: {x: 0, y: 0, z: 13.520837}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.0006722777, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.1111111111111111
-    - position: {x: 0.025789049, y: 0, z: 32.701187}
+    - position: {x: 0, y: 0, z: 32.701187}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.2222222222222222
-    - position: {x: 0.038683575, y: 0, z: 51.88154}
+    - position: {x: 0, y: 0, z: 51.88154}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.3333333333333333
-    - position: {x: 0.051578097, y: 0, z: 71.06189}
+    - position: {x: 0, y: 0, z: 71.06189}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227776, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.4444444444444444
-    - position: {x: 0.06447262, y: 0, z: 90.24224}
+    - position: {x: 0, y: 0, z: 90.24224}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.0006722777, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.5555555555555556
-    - position: {x: 0.07736715, y: 0, z: 109.42259}
+    - position: {x: 0, y: 0, z: 109.42259}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.6666666666666666
-    - position: {x: 0.090261675, y: 0, z: 128.60294}
+    - position: {x: 0, y: 0, z: 128.60294}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.7777777777777778
-    - position: {x: 0.103156194, y: 0, z: 147.7833}
+    - position: {x: 0, y: 0, z: 147.7833}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 0.8888888888888888
-    - position: {x: 0.11605072, y: 0, z: 166.96364}
+    - position: {x: 0, y: 0, z: 166.96364}
       up: {x: 0, y: 1, z: 0}
-      forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+      forward: {x: 0, y: 0, z: 1}
       color: {r: 0, g: 1, b: 0.1697376, a: 1}
       size: 10
       percent: 1
@@ -130,14 +130,14 @@ MonoBehaviour:
   clipFromSample:
     position: {x: 0, y: 0, z: -5.6595144}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+    forward: {x: 0, y: 0, z: 1}
     color: {r: 0, g: 1, b: 0.1697376, a: 1}
     size: 10
     percent: 0
   clipToSample:
-    position: {x: 0.11605072, y: 0, z: 166.96364}
+    position: {x: 0, y: 0, z: 166.96364}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+    forward: {x: 0, y: 0, z: 1}
     color: {r: 0, g: 1, b: 0.1697376, a: 1}
     size: 10
     percent: 1
@@ -174,28 +174,28 @@ MonoBehaviour:
     applyScaleX: 0
     applyScaleY: 0
     applyScaleZ: 0
-    targetUser: {fileID: 8040782392710147023}
+    targetUser: {fileID: 6450258958453890840}
   targetRigidbody: {fileID: 0}
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 8040782392710147020}
   _result:
     position: {x: 0, y: 0, z: -5.6595144}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+    forward: {x: 0, y: 0, z: 1}
     color: {r: 0, g: 1, b: 0.1697376, a: 1}
     size: 10
     percent: 0
   _finalResult:
     position: {x: 0, y: 0, z: -5.6595144}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.00067227765, y: 0, z: 0.99999976}
+    forward: {x: 0, y: 0, z: 1}
     color: {r: 0, g: 1, b: 0.1697376, a: 1}
     size: 10
     percent: 0
   wrapMode: 0
   followMode: 0
   autoStartPosition: 0
-  follow: 1
+  follow: 0
   preserveUniformSpeedWithOffset: 0
   _followSpeed: 1
   _followDuration: 1
@@ -412,8 +412,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07401cf48efe194298ac78cf5f61c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clampX: 0.3
-  moveData: {fileID: 11400000, guid: 7c54451d046cea841892334f6e7c627e, type: 2}
+  inputManager: {fileID: 0}
+  splineFollower: {fileID: 0}
+  mainBody: {fileID: 0}
+  horizontalSpeed: 1
+  forwardSpeed: 5
+  xClampMin: 0
+  xClampMax: 0
+  isControllable: 0
 --- !u!4 &7501907941067615190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1449462525326737089, guid: 034875f95bfe7444887291de33fb4b52, type: 3}

@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class SlicedStickController : MonoBehaviour, IThrowable
 {
 	[SerializeField] private float destroyingDelay = 3;
-	private Rigidbody rb;
+
+	private Rigidbody rigidbody;
+	public Rigidbody Rigidbody => rigidbody == null ? rigidbody = GetComponent<Rigidbody>() : rigidbody;
 	
 	private void OnDisable()
 	{
-		rb = GetComponent<Rigidbody>();
-		rb.velocity = Vector3.zero;
-		rb.angularVelocity = Vector3.zero;
+		Rigidbody.velocity = Vector3.zero;
+		Rigidbody.angularVelocity = Vector3.zero;
 	}
 	public void Throw(Vector3 force)
 	{
-		rb.AddForce(force, ForceMode.Impulse);
+		Rigidbody.AddForce(force, ForceMode.Impulse);
 
 		if (TryGetComponent(out PoolObject pool))
 			Run.After(destroyingDelay, () => PoolingSystem.Instance.DestroyAPS(gameObject));

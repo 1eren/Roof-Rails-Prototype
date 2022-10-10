@@ -1,13 +1,14 @@
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class DoubleSidedStick : MonoBehaviour
+public class RailController : MonoBehaviour
 {
 	[OnValueChanged("SetSticksAttributes")]
-	[SerializeField] private float distanceBetween = 1f, scale = 1;
+	[Range(0, 10)] public float distanceBetween = 1f;
+	[Range(2, 30)] public float scale = 1f;
 
+	[SerializeField] private float speedIncrease;
+	public bool isFinishStick;
 	//distance and scale will be updated instantly when the distance& scale changes on inspector
 	private void SetSticksAttributes()
 	{
@@ -19,15 +20,22 @@ public class DoubleSidedStick : MonoBehaviour
 				item.localPosition = new Vector3(-distanceBetween, item.localPosition.y, item.localPosition.z);
 
 			item.localScale = new Vector3(scale, item.localScale.y, item.localScale.z);
+
+			BoxCollider coll = GetComponent<BoxCollider>();
+			coll.size = new Vector3(coll.size.x, coll.size.y, scale);
 		}
 	}
 
 	private void CheckStickSize(Transform playerT)
 	{
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
+		EventManager.OnEnteredRail.Invoke(this);
 
 		if (stick.StickSize < distanceBetween * 2)
+		{
 			GameManager.Instance.FallEvent.Invoke();
+			return;
+		}
 
 		float playerPosX = playerT.position.x;
 		if (playerPosX > transform.position.x + distanceBetween
@@ -36,16 +44,14 @@ public class DoubleSidedStick : MonoBehaviour
 			GameManager.Instance.FallEvent.Invoke();
 			foreach (var item in GetComponentsInChildren<BoxCollider>())
 				item.enabled = false;
+			return;
 		}
+
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.TryGetComponent(out PlayerController player))
 		{
-			if (player.isHolding && player.isDeath)
-				return;
-			player.Hold();
-
 			CheckStickSize(player.transform);
 		}
 	}
@@ -55,17 +61,8 @@ public class DoubleSidedStick : MonoBehaviour
 		{
 			if (player.isDeath)
 				return;
-			var stick = player.GetComponentInChildren<PlayerStickController>();
 
-			if (stick.transform.position.z + 0.2f >= transform.position.z + scale / 2f)
-			{
-				player.Run();
-				return;
-			}
-
-			GameManager.Instance.FallEvent.Invoke();
-			foreach (var item in GetComponentsInChildren<BoxCollider>())
-				item.enabled = false;
+			EventManager.OnExitRail.Invoke(this);
 		}
 	}
 

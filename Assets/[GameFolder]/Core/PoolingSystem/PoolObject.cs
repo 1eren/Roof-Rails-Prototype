@@ -9,6 +9,6 @@ public class PoolObject : MonoBehaviour
 		PoolingSystem ps = PoolingSystem.Instance;
 		transform.position = ps.transform.position;
 		transform.rotation = ps.transform.rotation;
-		transform.SetParent(ps.transform);
+		//transform.SetParent(ps.transform);
 	}
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Security.Cryptography;
 
 public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
@@ -10,18 +9,28 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 
 	private void OnEnable()
 	{
-		GameManager.Instance.FallEvent.AddListener(Fail);
+		GameManager.Instance.FallEvent.AddListener(Drop);
+		GameManager.Instance.WinEvent.AddListener(Drop);
 	}
 	private void OnDisable()
 	{
-		GameManager.Instance.FallEvent.RemoveListener(Fail);
+		GameManager.Instance.FallEvent.RemoveListener(Drop);
+		GameManager.Instance.WinEvent.AddListener(Drop);
 	}
 	public void IncreaseScale(float amount)
 	{
 		transform.DOComplete(); // complete tween if is still scaling
 		transform.DOScale(transform.localScale + amount * Vector3.right, 0.1f);
 	}
-	public void DecreaseScale(Vector3 direction)
+	public void DecreaseScale(float amount)
+	{
+		transform.localScale -= Vector3.right * amount;
+		Vector3 pos = transform.position;
+		float slicingPoint = StickSize / 2f - amount;
+		CreateNewPart(amount, new Vector3(pos.x + slicingPoint, pos.y, pos.z));
+		CreateNewPart(amount, new Vector3(pos.x - slicingPoint, pos.y, pos.z));
+	}
+	public void Slice(Vector3 direction)
 	{
 		//finding difference and required scale for slicing
 		float amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
@@ -37,9 +46,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		transform.localScale -= Vector3.right * amount;
 		transform.position -= roundedValue * amount / 2;
 		CreateNewPart(amount, new Vector3(direction.x, transform.position.y, transform.position.z));
-
 	}
-
 	public void CreateNewPart(float xScale, Vector3 hitPoint)
 	{
 		if (resetPositionTween != null)//kill tween if this function triggered twice
@@ -56,14 +63,17 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		newPart.GetComponent<IThrowable>().Throw(Vector3.Normalize(hitPoint - transform.position + Vector3.up) * 2f);
 	}
 
-	private void Fail()
+	private void Drop()
 	{
 		transform.parent = null;
 		Throw(new Vector3(0.3f, 50, Random.Range(-4f, 4f)));
 	}
 	public void Throw(Vector3 force)
 	{
-		Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+		if (GetComponent<Rigidbody>() == null)
+			gameObject.AddComponent<Rigidbody>();
+
+		Rigidbody rb = GetComponent<Rigidbody>();
 		rb.AddForce(force);
 		GetComponent<CapsuleCollider>().height *= 0.95f;
 	}

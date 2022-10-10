@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
@@ -27,10 +28,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		}
 	}
 
-	private static bool applicationIsQuitting = false;
-
-	public void OnDestroy()
+	void OnDisable()
 	{
-		applicationIsQuitting = true;
+		if (!this.gameObject.scene.isLoaded) return;
+		// Instantiate objects here
 	}
 }

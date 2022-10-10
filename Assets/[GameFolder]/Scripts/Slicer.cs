@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using DG.Tweening;
-using Sirenix.OdinInspector;
 
 public class Slicer : MonoBehaviour
 {
@@ -14,7 +9,7 @@ public class Slicer : MonoBehaviour
 		{
 			GetComponent<Collider>().enabled = false;
 			isTriggered = true;
-			sliceable.DecreaseScale(transform.position);
+			sliceable.Slice(transform.position);
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class LevelPanel : UIPanelBase
 		Run.After(1, () =>
 		{
 			inGamePanel.SetActive(false);
-			losePanel.SetActive(true);
+			OpenPanel(losePanel);
 		});
 	}
 	private void ShowWinPanel()
@@ -29,7 +30,13 @@ public class LevelPanel : UIPanelBase
 		Run.After(1, () =>
 		{
 			inGamePanel.SetActive(false);
-			winPanel.SetActive(true);
+			OpenPanel(winPanel);
 		});
+	}
+	private void OpenPanel(GameObject panel)
+	{
+		panel.SetActive(true);
+		panel.transform.localScale = Vector3.zero;
+		panel.transform.DOScale(Vector3.one, 1f);
 	}
 }

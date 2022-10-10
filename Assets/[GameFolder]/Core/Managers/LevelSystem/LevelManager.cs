@@ -15,9 +15,11 @@ public class LevelManager : Singleton<LevelManager>
 	public UnityEvent LevelFinishEvent = new UnityEvent();
 
 	bool isLevelStarted;
+	bool isLevelFinished;
 	[ReadOnly]
 	[ShowInInspector]
 	public bool IsLevelStarted { get { return isLevelStarted; } set { isLevelStarted = value; } }
+	public bool IsLevelFinished { get { return isLevelFinished; } set { isLevelFinished = value; } }
 
 	private void Update()
 	{
@@ -40,7 +42,7 @@ public class LevelManager : Singleton<LevelManager>
 	}
 	public void OnFinishLevel()
 	{
-		LevelStartEvent?.Invoke();
+		LevelFinishEvent?.Invoke();
 	}
 	public void StartLevel()
 	{
