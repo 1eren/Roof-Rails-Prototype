@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICollectable 
 {
-    void Collect(Collector collector);
+    void Collect(GemCollector collector);
 }

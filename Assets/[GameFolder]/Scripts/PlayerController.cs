@@ -3,23 +3,25 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
 	[ReadOnly] public bool isDeath;
-
 	[ReadOnly] public bool isHolding;
+	public GameColor color;
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Fall);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.AddListener(Run);
-
+		ColorManager.Instance.OnColorChange.AddListener((x) => color = x);
 	}
 	private void OnDisable()
 	{
 		GameManager.Instance.FallEvent.RemoveListener(Fall);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.RemoveListener(Run);
+		ColorManager.Instance.OnColorChange.RemoveListener((x) => color = x);
 	}
 
 	public void Hold(RailController rail)

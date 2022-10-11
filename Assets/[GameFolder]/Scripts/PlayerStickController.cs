@@ -5,17 +5,20 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
 	private Tween resetPositionTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
+
 	public float StickSize => transform.localScale.x;
 
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Drop);
 		GameManager.Instance.WinEvent.AddListener(Drop);
+		ColorManager.Instance.OnColorChange.AddListener(ChangeColor);
 	}
 	private void OnDisable()
 	{
 		GameManager.Instance.FallEvent.RemoveListener(Drop);
 		GameManager.Instance.WinEvent.AddListener(Drop);
+		ColorManager.Instance.OnColorChange.RemoveListener(ChangeColor);
 	}
 	public void IncreaseScale(float amount)
 	{
@@ -76,5 +79,10 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		Rigidbody rb = GetComponent<Rigidbody>();
 		rb.AddForce(force);
 		GetComponent<CapsuleCollider>().height *= 0.95f;
+	}
+
+	private void ChangeColor(GameColor color)
+	{
+		ColorManager.Instance.ChangeColor(GetComponent<MeshRenderer>());
 	}
 }

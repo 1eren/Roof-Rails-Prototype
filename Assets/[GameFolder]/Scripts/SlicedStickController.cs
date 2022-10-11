@@ -7,7 +7,11 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 
 	private Rigidbody rigidbody;
 	public Rigidbody Rigidbody => rigidbody == null ? rigidbody = GetComponent<Rigidbody>() : rigidbody;
-	
+
+	private void OnEnable()
+	{
+		ColorManager.Instance.ChangeColor(GetComponent<MeshRenderer>());
+	}
 	private void OnDisable()
 	{
 		Rigidbody.velocity = Vector3.zero;

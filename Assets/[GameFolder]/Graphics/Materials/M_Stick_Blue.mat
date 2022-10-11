@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Stick
+  m_Name: M_Stick_Blue
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
@@ -163,7 +163,7 @@ Material:
     - _UseSpecular: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.048727296, g: 0.6886792, b: 0.09614912, a: 1}
+    - _BaseColor: {r: 0.06132078, g: 0.49002975, b: 1, a: 1}
     - _Color: {r: 1, g: 0.37249097, b: 0.10849059, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
