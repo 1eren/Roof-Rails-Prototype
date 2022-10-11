@@ -14,6 +14,7 @@ public class RagdolController : RagdollBase
 	}
 	private void OnDisable()
 	{
+		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(OnFailed);
 	}
 

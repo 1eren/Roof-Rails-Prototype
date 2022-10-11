@@ -12,6 +12,7 @@ public class LevelPanel : UIPanelBase
 	}
 	private void OnDisable()
 	{
+		if (LevelManager.Instance == null) return;
 		GameManager.Instance.WinEvent.RemoveListener(ShowWinPanel);
 		GameManager.Instance.FallEvent.RemoveListener(ShowFailPanel);
 	}

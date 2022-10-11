@@ -10,6 +10,7 @@ public class TutorialPanel : UIPanelBase
     }
     private void OnDisable()
     {
+        if (LevelManager.Instance == null) return;
         LevelManager.Instance.LevelStartEvent.RemoveListener(HidePanel);
     }
 }

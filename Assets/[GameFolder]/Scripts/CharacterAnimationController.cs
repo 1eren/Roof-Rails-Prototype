@@ -15,6 +15,7 @@ public class CharacterAnimationController : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (LevelManager.Instance == null) return;
         LevelManager.Instance.LevelStartEvent.RemoveListener(Run);
         GameManager.Instance.WinEvent.RemoveListener(Dance);
         EventManager.OnEnteredRail.RemoveListener((x)=> Hold());

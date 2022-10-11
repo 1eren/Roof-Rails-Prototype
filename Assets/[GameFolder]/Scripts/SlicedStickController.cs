@@ -10,7 +10,7 @@ public class SlicedStickController : MonoBehaviour, IThrowable
 
 	private void OnEnable()
 	{
-		ColorManager.Instance.ChangeColor(GetComponent<MeshRenderer>());
+		ColorManager.Instance.ChangeMaterial(GetComponent<MeshRenderer>(), null);
 	}
 	private void OnDisable()
 	{

@@ -9,4 +9,8 @@ public class GameManager : Singleton<GameManager>
 	[HideInInspector] public UnityEvent FallEvent = new UnityEvent();
 	[HideInInspector] public UnityEvent DeathEvent = new UnityEvent();
 	[HideInInspector] public UnityEvent WinEvent = new UnityEvent();
+	private void Awake()
+	{
+		Application.targetFrameRate = 120;
+	}
 }

@@ -9,7 +9,7 @@ public class ColorSwitcher : MonoBehaviour
     {
         if(other.TryGetComponent(out PlayerController player))
         {
-            ColorManager.Instance.OnColorChange.Invoke(color);
+            ColorManager.Instance.ChangeColor(color);
         }
     }
 }

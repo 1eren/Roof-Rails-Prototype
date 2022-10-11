@@ -3,7 +3,7 @@ using DG.Tweening;
 
 public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
-	private Tween resetPositionTween;
+	private Tween resetPositionTween, scaleTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
 
 	public float StickSize => transform.localScale.x;
@@ -16,14 +16,15 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	}
 	private void OnDisable()
 	{
+		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Drop);
-		GameManager.Instance.WinEvent.AddListener(Drop);
+		GameManager.Instance.WinEvent.RemoveListener(Drop);
 		ColorManager.Instance.OnColorChange.RemoveListener(ChangeColor);
 	}
 	public void IncreaseScale(float amount)
 	{
-		transform.DOComplete(); // complete tween if is still scaling
-		transform.DOScale(transform.localScale + amount * Vector3.right, 0.1f);
+		scaleTween.Complete(); // complete tween if is still scaling
+		scaleTween = transform.DOScale(transform.localScale + amount * Vector3.right, 0.1f);
 	}
 	public void DecreaseScale(float amount)
 	{
@@ -35,6 +36,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	}
 	public void Slice(Vector3 direction)
 	{
+		scaleTween.Kill();
 		//finding difference and required scale for slicing
 		float amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
 
@@ -83,6 +85,6 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 
 	private void ChangeColor(GameColor color)
 	{
-		ColorManager.Instance.ChangeColor(GetComponent<MeshRenderer>());
+		ColorManager.Instance.ChangeMaterial(GetComponent<MeshRenderer>(), null);
 	}
 }

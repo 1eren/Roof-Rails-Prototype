@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void OnDisable()
 	{
+		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Fall);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.RemoveListener(Run);

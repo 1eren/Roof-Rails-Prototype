@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dd726cd92a8eb408199f815c83bdaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: 1
   increasingScale: 0.2
 --- !u!136 &493248637527541451
 CapsuleCollider:

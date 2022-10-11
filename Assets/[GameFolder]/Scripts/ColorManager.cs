@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TerrainUtils;
 
 [System.Serializable]
 public enum GameColor
@@ -19,19 +20,29 @@ public struct ColorList
 public class ColorManager : Singleton<ColorManager>
 {
 	public List<ColorList> colorList = new List<ColorList>();
-	GameColor color;
+	public GameColor gameColor;
 
 	public UnityEvent<GameColor> OnColorChange = new UnityEvent<GameColor>();
-	private void OnEnable()
+
+	public void ChangeColor(GameColor color)
 	{
-		OnColorChange.AddListener((x) => color = x);
+		gameColor = color;
+		OnColorChange?.Invoke(gameColor);
 	}
-	public void ChangeColor(MeshRenderer mesh)
+	public void ChangeMaterial(MeshRenderer mesh, GameColor? color)
 	{
 		foreach (var item in colorList)
 		{
-			if (item.color == color)
-				mesh.material = item.colorMat;
+			if (color != null)
+			{
+				if (item.color == color)
+					mesh.material = item.colorMat;
+			}
+			else
+			{
+				if (item.color == gameColor)
+					mesh.material = item.colorMat;
+			}
 		}
 	}
 }

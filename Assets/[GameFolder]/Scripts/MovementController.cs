@@ -12,7 +12,7 @@ public class MovementController : MonoBehaviour, IInputListener
 	public PlayerMoveData moveData;
 
 	private float xClampMinInit, xClampMaxInit;
-	[ReadOnly] public bool isControllable = true;
+	[ReadOnly] public bool isControllable = false;
 	private void OnEnable()
 	{
 		Initialize();
@@ -27,10 +27,11 @@ public class MovementController : MonoBehaviour, IInputListener
 	}
 	private void OnDisable()
 	{
+		if (LevelManager.Instance == null) return;
 		LevelManager.Instance.LevelStartEvent.RemoveListener(OnLevelStarted);
 
 		GameManager.Instance.FallEvent.RemoveListener(FallPlayer);
-		GameManager.Instance.WinEvent.AddListener(StopPlayer);
+		GameManager.Instance.WinEvent.RemoveListener(StopPlayer);
 
 		EventManager.OnEnteredRail.RemoveListener(MoveOnRail);
 		EventManager.OnExitRail.RemoveListener(ResetClamp);
@@ -50,6 +51,7 @@ public class MovementController : MonoBehaviour, IInputListener
 	}
 	private void OnLevelStarted()
 	{
+		isControllable = true;
 		splineFollower.follow = true;
 		splineFollower.followSpeed = moveData.forwardSpeed;
 	}
