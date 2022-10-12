@@ -50,7 +50,7 @@ public class RailController : MonoBehaviour
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
 		float playerPosX = playerT.position.x;
 
-		if (stick.StickSize < distanceBetween * 2 - 0.5f)
+		if (stick.StickSize < distanceBetween * 2 - 0.4f)
 		{
 			CheckFinishStick();
 			return;
