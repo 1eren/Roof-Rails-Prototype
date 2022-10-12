@@ -20,8 +20,4 @@ public class CollectableStick : MonoBehaviour
 			player.GetComponentInChildren<ISliceable>().IncreaseScale(increasingScale);
 		}
 	}
-	private void ChangeColor()
-	{
-		ColorManager.Instance.ChangeMaterial(GetComponent<MeshRenderer>(),color);
-	}
 }

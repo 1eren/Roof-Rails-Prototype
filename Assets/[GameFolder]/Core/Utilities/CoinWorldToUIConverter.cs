@@ -28,6 +28,9 @@ public class CoinWorldToUIConverter : MonoBehaviour
 		{
 			PoolingSystem.Instance.DestroyAPS(gemImageGo);
 			PlayerPrefs.SetInt(PlayerPrefKeys.COIN, PlayerPrefs.GetInt(PlayerPrefKeys.COIN) + 1);
+
+			GameManager.Instance.UpdatePlayerCoinEvent.Invoke();
+
 		})
 		.OnKill(() =>
 		{

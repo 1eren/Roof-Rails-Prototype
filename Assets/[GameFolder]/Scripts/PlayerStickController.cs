@@ -1,25 +1,27 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
+public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable, IColorable
 {
 	private Tween resetPositionTween, scaleTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
 
 	public float StickSize => transform.localScale.x;
 
+
+	[SerializeField] private MeshRenderer mesh;
+	public MeshRenderer Mesh => mesh;
+
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Drop);
 		GameManager.Instance.WinEvent.AddListener(Drop);
-		ColorManager.Instance.OnColorChange.AddListener(ChangeColor);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Drop);
 		GameManager.Instance.WinEvent.RemoveListener(Drop);
-		ColorManager.Instance.OnColorChange.RemoveListener(ChangeColor);
 	}
 	public void IncreaseScale(float amount)
 	{
@@ -29,6 +31,11 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	public void DecreaseScale(float amount)
 	{
 		transform.localScale -= Vector3.right * amount;
+		if (StickSize <= 0.1f)
+		{
+			GameManager.Instance.DeathEvent.Invoke();
+			return;
+		}
 		Vector3 pos = transform.position;
 		float slicingPoint = StickSize / 2f - amount;
 		CreateNewPart(amount, new Vector3(pos.x + slicingPoint, pos.y, pos.z));
@@ -38,9 +45,9 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	{
 		scaleTween.Kill();
 		//finding difference and required scale for slicing
-		float amount = (transform.localScale.x / 2) - Mathf.Abs(direction.x - transform.position.x);
+		float amount = (StickSize / 2) - Mathf.Abs(direction.x - transform.position.x);
 
-		if (transform.localScale.x - amount < minimumStickScale)//if the stick will be very small we stopping at a small value
+		if (StickSize - amount < minimumStickScale)//if the stick will be very small we stopping at a small value
 		{
 			transform.localScale = new Vector3(minimumStickScale, transform.localScale.y, transform.localScale.z);
 			return;
@@ -81,10 +88,5 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		Rigidbody rb = GetComponent<Rigidbody>();
 		rb.AddForce(force);
 		GetComponent<CapsuleCollider>().height *= 0.95f;
-	}
-
-	private void ChangeColor(GameColor color)
-	{
-		ColorManager.Instance.ChangeMaterial(GetComponent<MeshRenderer>(), null);
 	}
 }

@@ -9,20 +9,21 @@ public class PlayerController : MonoBehaviour
 	[ReadOnly] public bool isDeath;
 	[ReadOnly] public bool isHolding;
 	public GameColor color;
+	[SerializeField] private GameObject deathParticle;
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Fall);
+		GameManager.Instance.DeathEvent.AddListener(Death);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.AddListener(Run);
-		ColorManager.Instance.OnColorChange.AddListener((x) => color = x);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Fall);
+		GameManager.Instance.DeathEvent.RemoveListener(Death);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.RemoveListener(Run);
-		ColorManager.Instance.OnColorChange.RemoveListener((x) => color = x);
 	}
 
 	public void Hold(RailController rail)
@@ -39,6 +40,13 @@ public class PlayerController : MonoBehaviour
 	{
 		isDeath = true;
 		FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
+	}
+	public void Death()
+	{
+		FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
+		isDeath = true;
+		gameObject.SetActive(false);
+		Instantiate(deathParticle, transform.position,Quaternion.identity);
 	}
 	private IEnumerator CheckHoldingStatus(RailController rail, PlayerStickController stick)
 	{

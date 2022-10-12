@@ -4776,6 +4776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  destroyingParticleID: GreenGateParticle
 --- !u!1 &146014
 GameObject:
   m_ObjectHideFlags: 0

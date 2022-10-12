@@ -4776,6 +4776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  destroyingParticleID: BlueGateParticle
 --- !u!1 &146014
 GameObject:
   m_ObjectHideFlags: 0

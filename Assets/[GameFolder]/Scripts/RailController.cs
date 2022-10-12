@@ -22,7 +22,7 @@ public class RailController : MonoBehaviour
 			item.localScale = new Vector3(scale, item.localScale.y, item.localScale.z);
 
 			BoxCollider coll = GetComponent<BoxCollider>();
-			coll.size = new Vector3(coll.size.x, coll.size.y, scale);
+			coll.size = new Vector3(coll.size.x, coll.size.y, 10 + scale);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class RailController : MonoBehaviour
 		if (playerPosX > transform.position.x + distanceBetween
 			|| playerPosX < transform.position.x - distanceBetween)
 		{
-			if(!isFinishStick)
+			if (!isFinishStick)
 				GameManager.Instance.FallEvent.Invoke();
 			foreach (var item in GetComponentsInChildren<BoxCollider>())
 				item.enabled = false;
@@ -69,5 +69,4 @@ public class RailController : MonoBehaviour
 			EventManager.OnExitRail.Invoke(this);
 		}
 	}
-
 }

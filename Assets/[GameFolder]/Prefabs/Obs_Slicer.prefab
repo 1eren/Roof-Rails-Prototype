@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4560351911432603975}
   - component: {fileID: 2920595660484829885}
   - component: {fileID: 2920595660484829884}
-  - component: {fileID: 5648531913538905058}
   m_Layer: 0
   m_Name: Obs_Slicer
   m_TagString: Untagged
@@ -111,22 +110,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91787a6fa60f05e4ab3904335bfbf290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5648531913538905058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614730558405175442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06c20cf9a0b9a4408a13b652c1f59ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationDirection: 0
-  RotateMode: 1
-  Ease: 1
-  LoopType: 0
-  rotateTarget: 360
-  Duration: 1
-  Delay: 0
