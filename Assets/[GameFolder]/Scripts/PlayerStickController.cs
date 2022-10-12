@@ -12,12 +12,16 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Drop);
+
+		GameManager.Instance.JumpToFinish.AddListener(Drop);
 		GameManager.Instance.WinEvent.AddListener(Drop);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Drop);
+
+		GameManager.Instance.JumpToFinish.RemoveListener(Drop);
 		GameManager.Instance.WinEvent.RemoveListener(Drop);
 	}
 	public void IncreaseScale(float amount)

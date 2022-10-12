@@ -5,6 +5,9 @@ using UnityEngine.Events;
 public class GameManager : Singleton<GameManager>
 {
 	[HideInInspector] public UnityEvent FallEvent = new UnityEvent();
+
+	[HideInInspector] public UnityEvent JumpToFinish = new UnityEvent();
+
 	[HideInInspector] public UnityEvent DeathEvent = new UnityEvent();
 	[HideInInspector] public UnityEvent WinEvent = new UnityEvent();
 

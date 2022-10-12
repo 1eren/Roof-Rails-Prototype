@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 	{
 		GameManager.Instance.FallEvent.AddListener(Fall);
 		GameManager.Instance.DeathEvent.AddListener(Death);
+		GameManager.Instance.JumpToFinish.AddListener(() => isDeath = true);
+
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.AddListener(Run);
 
@@ -25,7 +27,9 @@ public class PlayerController : MonoBehaviour
 	{
 		if (LevelManager.Instance == null) return;
 		GameManager.Instance.FallEvent.RemoveListener(Fall);
+		GameManager.Instance.JumpToFinish.RemoveListener(() => isDeath = true);
 		GameManager.Instance.DeathEvent.RemoveListener(Death);
+
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.RemoveListener(Run);
 
@@ -65,14 +69,13 @@ public class PlayerController : MonoBehaviour
 			{
 				if (rail.isFinishStick)
 				{
-					foreach (var item in rail.GetComponentsInChildren<BoxCollider>())
-						item.enabled = false;
+					isDeath = true;
+					GameManager.Instance.JumpToFinish.Invoke();
 					EventManager.OnExitRail.Invoke(rail);
 					break;
 				}
 				GameManager.Instance.FallEvent.Invoke();
-				foreach (var item in rail.GetComponentsInChildren<Collider>())
-					item.enabled = !item.enabled;
+				
 				isDeath = true;
 			}
 			yield return new WaitForFixedUpdate();

@@ -5,10 +5,14 @@ public class RailController : MonoBehaviour
 {
 	[OnValueChanged("SetSticksAttributes")]
 	[Range(0, 10)] public float distanceBetween = 1f;
+	[OnValueChanged("SetSticksAttributes")] 
 	[Range(2, 30)] public float scale = 1f;
 
 	[SerializeField] public float speedIncrease;
 	public bool isFinishStick;
+
+	private bool isTriggered;
+
 	//distance and scale will be updated instantly when the distance& scale changes on inspector
 	private void SetSticksAttributes()
 	{
@@ -25,21 +29,38 @@ public class RailController : MonoBehaviour
 			coll.size = new Vector3(10 + scale, coll.size.y, scale);
 		}
 	}
+	private void OnEnable()
+	{
+		GameManager.Instance.FallEvent.AddListener(ChangeColliderStatus);
 
+		GameManager.Instance.JumpToFinish.AddListener(ChangeColliderStatus);
+		GameManager.Instance.WinEvent.AddListener(ChangeColliderStatus);
+	}
+	private void OnDisable()
+	{
+		if (LevelManager.Instance == null) return;
+
+		GameManager.Instance.FallEvent.RemoveListener(ChangeColliderStatus);
+
+		GameManager.Instance.JumpToFinish.RemoveListener(ChangeColliderStatus);
+		GameManager.Instance.WinEvent.RemoveListener(ChangeColliderStatus);
+	}
 	private void CheckStickSize(Transform playerT)
 	{
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
+		float playerPosX = playerT.position.x;
 
 		if (stick.StickSize < distanceBetween * 2)
 		{
 			CheckFinishStick();
+			return;
 		}
 
-		float playerPosX = playerT.position.x;
 		if (playerPosX > transform.position.x + distanceBetween
 			|| playerPosX < transform.position.x - distanceBetween)
 		{
 			CheckFinishStick();
+			return;
 		}
 		EventManager.OnEnteredRail.Invoke(this);
 
@@ -48,14 +69,16 @@ public class RailController : MonoBehaviour
 	{
 		if (!isFinishStick)
 			GameManager.Instance.FallEvent.Invoke();
-		foreach (var item in GetComponentsInChildren<Collider>())
-			item.enabled = !item.enabled;
-		return;
+		else
+			GameManager.Instance.JumpToFinish.Invoke();
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.TryGetComponent(out PlayerController player))
 		{
+			if (player.isDeath && isTriggered)
+				return;
+			isTriggered = true;
 			CheckStickSize(player.transform);
 		}
 	}
@@ -68,5 +91,11 @@ public class RailController : MonoBehaviour
 
 			EventManager.OnExitRail.Invoke(this);
 		}
+	}
+
+	private void ChangeColliderStatus()
+	{
+		foreach (var item in GetComponentsInChildren<Collider>())
+			item.enabled = !item.enabled;
 	}
 }
