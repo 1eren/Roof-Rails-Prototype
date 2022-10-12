@@ -12,7 +12,7 @@ public class RailController : MonoBehaviour
 	public bool isFinishStick;
 
 	private bool isTriggered;
-
+	[ReadOnly] public float railWidth;
 	//distance and scale will be updated instantly when the distance& scale changes on inspector
 	private void SetSticksAttributes()
 	{
@@ -31,6 +31,8 @@ public class RailController : MonoBehaviour
 	}
 	private void OnEnable()
 	{
+		railWidth = GetComponentInChildren<MeshRenderer>().bounds.size.x;
+
 		GameManager.Instance.PlayerFalled.AddListener(ChangeColliderStatus);
 
 		GameManager.Instance.JumpedToFinish.AddListener(ChangeColliderStatus);
@@ -50,7 +52,8 @@ public class RailController : MonoBehaviour
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
 		float playerPosX = playerT.position.x;
 
-		if (stick.StickSize < distanceBetween * 2 - 0.4f)
+		// substract rail size to reach exact result
+		if (stick.StickSize < distanceBetween * 2 - railWidth)
 		{
 			CheckFinishStick();
 			return;

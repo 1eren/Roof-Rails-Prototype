@@ -75,8 +75,8 @@ public class PlayerController : MonoBehaviour
 		{
 			Transform railT = rail.transform;
 			float stickX = stick.transform.position.x;
-			if (stickX + stick.StickSize / 2 < railT.position.x + rail.distanceBetween - 0.2f//0.2 is rail stick length
-			|| stickX - stick.StickSize / 2 > railT.position.x - rail.distanceBetween + 0.2f)
+			if (stickX + stick.StickSize / 2 < railT.position.x + rail.distanceBetween - rail.railWidth / 2
+				|| stickX - stick.StickSize / 2 > railT.position.x - rail.distanceBetween + rail.railWidth / 2)
 			{
 				if (rail.isFinishStick)
 				{
