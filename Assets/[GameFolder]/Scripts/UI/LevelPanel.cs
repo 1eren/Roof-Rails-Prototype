@@ -13,7 +13,8 @@ public class LevelPanel : UIPanelBase
 		GameManager.Instance.WinEvent.AddListener(ShowWinPanel);
 		GameManager.Instance.FallEvent.AddListener(ShowFailPanel);
 		GameManager.Instance.DeathEvent.AddListener(ShowFailPanel);
-		GameManager.Instance.UpdatePlayerCoinEvent.AddListener(UpdateMoneyTexts);
+
+		GameManager.Instance.OnPlayerPrefsUpdated.AddListener(UpdateMoneyTexts);
 
 		UpdateMoneyTexts();
 	}
@@ -23,7 +24,8 @@ public class LevelPanel : UIPanelBase
 		GameManager.Instance.WinEvent.RemoveListener(ShowWinPanel);
 		GameManager.Instance.FallEvent.RemoveListener(ShowFailPanel);
 		GameManager.Instance.DeathEvent.RemoveListener(ShowFailPanel);
-		GameManager.Instance.UpdatePlayerCoinEvent.RemoveListener(UpdateMoneyTexts);
+
+		GameManager.Instance.OnPlayerPrefsUpdated.RemoveListener(UpdateMoneyTexts);
 	}
 	private void ShowFailPanel()
 	{

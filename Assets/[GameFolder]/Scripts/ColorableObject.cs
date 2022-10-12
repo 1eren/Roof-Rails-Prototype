@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorableObject : MonoBehaviour, IColorable
@@ -10,7 +8,7 @@ public class ColorableObject : MonoBehaviour, IColorable
 	public ColorData[] ColorArray => colorArray;
 
 	private Renderer mesh;
-	public Renderer Mesh => mesh == null ? mesh = GetComponent<MeshRenderer>() : mesh;
+	public Renderer Mesh => mesh == null ? mesh = GetComponent<Renderer>() : mesh;
 	private void OnEnable()
 	{
 		if (ColorManager.Instance == null) return;
@@ -19,7 +17,7 @@ public class ColorableObject : MonoBehaviour, IColorable
 	private void OnDisable()
 	{
 		if (ColorManager.Instance == null) return;
-		ColorManager.Instance.OnColorChange.AddListener(ChangeColor);
+		ColorManager.Instance.OnColorChange.RemoveListener(ChangeColor);
 	}
 	public void ChangeColor(GameColor color)
 	{

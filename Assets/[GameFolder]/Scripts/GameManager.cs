@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
 	[HideInInspector] public UnityEvent DeathEvent = new UnityEvent();
 	[HideInInspector] public UnityEvent WinEvent = new UnityEvent();
 
-	[HideInInspector] public UnityEvent UpdatePlayerCoinEvent = new UnityEvent();
+	[HideInInspector] public UnityEvent OnPlayerPrefsUpdated = new UnityEvent();
 
 	private void Awake()
 	{
