@@ -1,9 +1,4 @@
-using Sirenix.OdinInspector;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class LavaController : MonoBehaviour
 {
