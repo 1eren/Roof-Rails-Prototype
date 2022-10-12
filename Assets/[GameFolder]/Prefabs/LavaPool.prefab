@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5313778a7eb238946aa5cb289a00ba81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 0.2
+  amount: 0.25
   destroyingDestiny: 0.1
 --- !u!1001 &5069780907688719572
 PrefabInstance:
