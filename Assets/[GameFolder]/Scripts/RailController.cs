@@ -5,7 +5,7 @@ public class RailController : MonoBehaviour
 {
 	[OnValueChanged("SetSticksAttributes")]
 	[Range(0, 10)] public float distanceBetween = 1f;
-	[OnValueChanged("SetSticksAttributes")] 
+	[OnValueChanged("SetSticksAttributes")]
 	[Range(2, 30)] public float scale = 1f;
 
 	[SerializeField] public float speedIncrease;
@@ -50,7 +50,7 @@ public class RailController : MonoBehaviour
 		var stick = playerT.GetComponentInChildren<PlayerStickController>();
 		float playerPosX = playerT.position.x;
 
-		if (stick.StickSize < distanceBetween * 2)
+		if (stick.StickSize < distanceBetween * 2 - 0.5f)
 		{
 			CheckFinishStick();
 			return;
