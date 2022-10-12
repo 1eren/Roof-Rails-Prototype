@@ -8,6 +8,6 @@ public class CollectableBase : MonoBehaviour, ICollectable
 	{
 		Destroy(gameObject);
 		PoolingSystem.Instance.InstantiateAPS("CollectableParticle", transform.position);
-		EventManager.OnGemCollected.Invoke(transform.position);
+		EventManager.GemCollected.Invoke(transform.position);
 	}
 }

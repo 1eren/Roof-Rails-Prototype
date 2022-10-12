@@ -1,31 +1,36 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelPanel : UIPanelBase
 {
 	[SerializeField] private GameObject inGamePanel, winPanel, losePanel;
 	[SerializeField] private List<TextMeshProUGUI> moneyTexts = new List<TextMeshProUGUI>();
+	[SerializeField] private TextMeshProUGUI poleCounterText;
+
+	int poleCounter = 0;
 	private void OnEnable()
 	{
-		GameManager.Instance.WinEvent.AddListener(ShowWinPanel);
-		GameManager.Instance.FallEvent.AddListener(ShowFailPanel);
-		GameManager.Instance.DeathEvent.AddListener(ShowFailPanel);
+		GameManager.Instance.GameWinEvent.AddListener(ShowWinPanel);
+		GameManager.Instance.PlayerFalled.AddListener(ShowFailPanel);
+		GameManager.Instance.PlayerDied.AddListener(ShowFailPanel);
 
-		GameManager.Instance.OnPlayerPrefsUpdated.AddListener(UpdateMoneyTexts);
+		GameManager.Instance.PlayerPrefsUptated.AddListener(UpdateMoneyTexts);
+		EventManager.StickCollected.AddListener(UpdatePoleText);
 
 		UpdateMoneyTexts();
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
-		GameManager.Instance.WinEvent.RemoveListener(ShowWinPanel);
-		GameManager.Instance.FallEvent.RemoveListener(ShowFailPanel);
-		GameManager.Instance.DeathEvent.RemoveListener(ShowFailPanel);
+		GameManager.Instance.GameWinEvent.RemoveListener(ShowWinPanel);
+		GameManager.Instance.PlayerFalled.RemoveListener(ShowFailPanel);
+		GameManager.Instance.PlayerDied.RemoveListener(ShowFailPanel);
 
-		GameManager.Instance.OnPlayerPrefsUpdated.RemoveListener(UpdateMoneyTexts);
+		GameManager.Instance.PlayerPrefsUptated.RemoveListener(UpdateMoneyTexts);
+		EventManager.StickCollected.RemoveListener(UpdatePoleText);
+
 	}
 	private void ShowFailPanel()
 	{
@@ -56,5 +61,10 @@ public class LevelPanel : UIPanelBase
 		{
 			item.SetText(coin.ToString());
 		}
+	}
+	private void UpdatePoleText(CollectableStick stick)
+	{
+		poleCounter++;
+		poleCounterText.SetText(poleCounter.ToString());
 	}
 }

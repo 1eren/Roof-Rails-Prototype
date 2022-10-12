@@ -7,12 +7,12 @@ public class RagdolController : RagdollBase
 	}
 	private void OnEnable()
 	{
-		GameManager.Instance.FallEvent.AddListener(OnFailed);
+		GameManager.Instance.PlayerFalled.AddListener(OnFailed);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
-		GameManager.Instance.FallEvent.RemoveListener(OnFailed);
+		GameManager.Instance.PlayerFalled.RemoveListener(OnFailed);
 	}
 
 	public void FreeFall()

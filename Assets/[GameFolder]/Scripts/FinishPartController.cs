@@ -7,7 +7,7 @@ public class FinishPartController : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent(out PlayerController player))
         {
-            GameManager.Instance.WinEvent.Invoke();
+            GameManager.Instance.GameWinEvent.Invoke();
             LevelManager.Instance.LevelFinishEvent.Invoke();
         }
     }

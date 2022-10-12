@@ -1,21 +1,23 @@
+using Sirenix.OdinInspector;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LavaController : MonoBehaviour
 {
-    public float amount;
+	public float amount;
+	[SerializeField] private float destroyingDestiny = 0.2f;
 
-    [SerializeField]private float destroyingDestiny = 0.3f;
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerController player))
-        {
-            PlayerStickController stick = player.GetComponentInChildren<PlayerStickController>();
-            destroyingDestiny += Time.deltaTime;
-            if (destroyingDestiny > 0.3f)
-            {
-                destroyingDestiny = 0;
-                stick.DecreaseScale(amount);
-            }
-        }
-    }
+	private float time = 0;
+	public void Burn()
+	{
+		time += Time.deltaTime;
+		if (time > destroyingDestiny)
+		{
+			time = 0;
+			EventManager.StickDecrased.Invoke(amount);
+		}
+	}
 }

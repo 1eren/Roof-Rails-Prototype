@@ -19,22 +19,22 @@ public class MovementController : MonoBehaviour, IInputListener
 
 		LevelManager.Instance.LevelStartEvent.AddListener(OnLevelStarted);
 
-		GameManager.Instance.FallEvent.AddListener(FallPlayer);
-		GameManager.Instance.WinEvent.AddListener(StopPlayer);
+		GameManager.Instance.PlayerFalled.AddListener(FallPlayer);
+		GameManager.Instance.GameWinEvent.AddListener(StopPlayer);
 
-		EventManager.OnEnteredRail.AddListener(MoveOnRail);
-		EventManager.OnExitRail.AddListener(ResetClamp);
+		EventManager.EnteredRail.AddListener(MoveOnRail);
+		EventManager.ExitedRail.AddListener(ResetClamp);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
 		LevelManager.Instance.LevelStartEvent.RemoveListener(OnLevelStarted);
 
-		GameManager.Instance.FallEvent.RemoveListener(FallPlayer);
-		GameManager.Instance.WinEvent.RemoveListener(StopPlayer);
+		GameManager.Instance.PlayerFalled.RemoveListener(FallPlayer);
+		GameManager.Instance.GameWinEvent.RemoveListener(StopPlayer);
 
-		EventManager.OnEnteredRail.RemoveListener(MoveOnRail);
-		EventManager.OnExitRail.RemoveListener(ResetClamp);
+		EventManager.EnteredRail.RemoveListener(MoveOnRail);
+		EventManager.ExitedRail.RemoveListener(ResetClamp);
 
 	}
 	private void Initialize()

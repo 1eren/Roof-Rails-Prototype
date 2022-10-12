@@ -7,17 +7,17 @@ public class CharacterAnimationController : MonoBehaviour
     private void OnEnable()
     {
         LevelManager.Instance.LevelStartEvent.AddListener(Run);
-        GameManager.Instance.WinEvent.AddListener(Dance);
-        EventManager.OnEnteredRail.AddListener((x) => Hold());
-        EventManager.OnExitRail.AddListener((x) => Run());
+        GameManager.Instance.GameWinEvent.AddListener(Dance);
+        EventManager.EnteredRail.AddListener((x) => Hold());
+        EventManager.ExitedRail.AddListener((x) => Run());
     }
     private void OnDisable()
     {
         if (LevelManager.Instance == null) return;
         LevelManager.Instance.LevelStartEvent.RemoveListener(Run);
-        GameManager.Instance.WinEvent.RemoveListener(Dance);
-        EventManager.OnEnteredRail.RemoveListener((x)=> Hold());
-        EventManager.OnExitRail.RemoveListener((x)=> Run());
+        GameManager.Instance.GameWinEvent.RemoveListener(Dance);
+        EventManager.EnteredRail.RemoveListener((x)=> Hold());
+        EventManager.ExitedRail.RemoveListener((x)=> Run());
     }
     public void Hold()
     {

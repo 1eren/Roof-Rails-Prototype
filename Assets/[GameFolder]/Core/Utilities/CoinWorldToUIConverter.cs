@@ -12,11 +12,11 @@ public class CoinWorldToUIConverter : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventManager.OnGemCollected.AddListener(OnGemCollected);
+		EventManager.GemCollected.AddListener(OnGemCollected);
 	}
 	private void OnDisable()
 	{
-		EventManager.OnGemCollected.RemoveListener(OnGemCollected);
+		EventManager.GemCollected.RemoveListener(OnGemCollected);
 	}
 	private void OnGemCollected(Vector3 gemPosition)
 	{
@@ -29,7 +29,7 @@ public class CoinWorldToUIConverter : MonoBehaviour
 			PoolingSystem.Instance.DestroyAPS(gemImageGo);
 			PlayerPrefs.SetInt(PlayerPrefKeys.COIN, PlayerPrefs.GetInt(PlayerPrefKeys.COIN) + 1);
 
-			GameManager.Instance.OnPlayerPrefsUpdated.Invoke();
+			GameManager.Instance.PlayerPrefsUptated.Invoke();
 
 		})
 		.OnKill(() =>

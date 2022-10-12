@@ -53,7 +53,7 @@ public class LevelManager : Singleton<LevelManager>
 	{
 		if (!IsLevelStarted)
 			return;
-		IsLevelStarted = false;
+		IsLevelFinished = true;
 		OnFinishLevel();
 	}
 }

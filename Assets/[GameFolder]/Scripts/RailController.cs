@@ -31,19 +31,19 @@ public class RailController : MonoBehaviour
 	}
 	private void OnEnable()
 	{
-		GameManager.Instance.FallEvent.AddListener(ChangeColliderStatus);
+		GameManager.Instance.PlayerFalled.AddListener(ChangeColliderStatus);
 
-		GameManager.Instance.JumpToFinish.AddListener(ChangeColliderStatus);
-		GameManager.Instance.WinEvent.AddListener(ChangeColliderStatus);
+		GameManager.Instance.JumpedToFinish.AddListener(ChangeColliderStatus);
+		GameManager.Instance.GameWinEvent.AddListener(ChangeColliderStatus);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
 
-		GameManager.Instance.FallEvent.RemoveListener(ChangeColliderStatus);
+		GameManager.Instance.PlayerFalled.RemoveListener(ChangeColliderStatus);
 
-		GameManager.Instance.JumpToFinish.RemoveListener(ChangeColliderStatus);
-		GameManager.Instance.WinEvent.RemoveListener(ChangeColliderStatus);
+		GameManager.Instance.JumpedToFinish.RemoveListener(ChangeColliderStatus);
+		GameManager.Instance.GameWinEvent.RemoveListener(ChangeColliderStatus);
 	}
 	private void CheckStickSize(Transform playerT)
 	{
@@ -62,15 +62,15 @@ public class RailController : MonoBehaviour
 			CheckFinishStick();
 			return;
 		}
-		EventManager.OnEnteredRail.Invoke(this);
+		EventManager.EnteredRail.Invoke(this);
 
 	}
 	private void CheckFinishStick()
 	{
 		if (!isFinishStick)
-			GameManager.Instance.FallEvent.Invoke();
+			GameManager.Instance.PlayerFalled.Invoke();
 		else
-			GameManager.Instance.JumpToFinish.Invoke();
+			GameManager.Instance.JumpedToFinish.Invoke();
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -89,7 +89,7 @@ public class RailController : MonoBehaviour
 			if (player.isDeath)
 				return;
 
-			EventManager.OnExitRail.Invoke(this);
+			EventManager.ExitedRail.Invoke(this);
 		}
 	}
 

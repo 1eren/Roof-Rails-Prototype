@@ -26,7 +26,7 @@ public class CollectableStick : MonoBehaviour, IColorable
 				return;
 			GameObject go = PoolingSystem.Instance.InstantiateAPS("PlusOne", player.transform.position);
 			go.transform.parent = player.transform;
-
+			EventManager.StickCollected.Invoke(this);
 			gameObject.SetActive(false);
 			player.GetComponentInChildren<ISliceable>().IncreaseScale(increasingScale);
 		}

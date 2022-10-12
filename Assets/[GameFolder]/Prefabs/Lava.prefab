@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4414144653807223517}
   - component: {fileID: 4414144653807223516}
   - component: {fileID: 4414144653807223515}
-  - component: {fileID: 4414144653807223513}
   - component: {fileID: 2144162567}
   m_Layer: 0
   m_Name: Lava
@@ -85,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4414144653807223513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4414144653807223512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5313778a7eb238946aa5cb289a00ba81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0.5
 --- !u!65 &2144162567
 BoxCollider:
   m_ObjectHideFlags: 0

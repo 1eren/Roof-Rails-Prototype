@@ -11,19 +11,23 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 	public MeshRenderer Mesh => mesh == null ? mesh = GetComponent<MeshRenderer>() : mesh;
 	private void OnEnable()
 	{
-		GameManager.Instance.FallEvent.AddListener(Drop);
+		GameManager.Instance.PlayerFalled.AddListener(Drop);
 
-		GameManager.Instance.JumpToFinish.AddListener(Drop);
-		GameManager.Instance.WinEvent.AddListener(Drop);
+		GameManager.Instance.JumpedToFinish.AddListener(Drop);
+		GameManager.Instance.GameWinEvent.AddListener(Drop);
+		EventManager.StickDecrased.AddListener(DecreaseScale);
 	}
 	private void OnDisable()
 	{
 		if (LevelManager.Instance == null) return;
-		GameManager.Instance.FallEvent.RemoveListener(Drop);
+		GameManager.Instance.PlayerFalled.RemoveListener(Drop);
 
-		GameManager.Instance.JumpToFinish.RemoveListener(Drop);
-		GameManager.Instance.WinEvent.RemoveListener(Drop);
+		GameManager.Instance.JumpedToFinish.RemoveListener(Drop);
+		GameManager.Instance.GameWinEvent.RemoveListener(Drop);
+		EventManager.StickDecrased.RemoveListener(DecreaseScale);
 	}
+
+
 	public void IncreaseScale(float amount)
 	{
 		scaleTween.Complete(); // complete tween if is still scaling
@@ -34,7 +38,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 		transform.localScale -= Vector3.right * amount;
 		if (StickSize <= 0.1f)
 		{
-			GameManager.Instance.DeathEvent.Invoke();
+			GameManager.Instance.PlayerDied.Invoke();
 			return;
 		}
 		Vector3 pos = transform.position;

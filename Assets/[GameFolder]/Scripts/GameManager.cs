@@ -4,14 +4,14 @@ using UnityEngine.Events;
 [DefaultExecutionOrder(-100)]
 public class GameManager : Singleton<GameManager>
 {
-	[HideInInspector] public UnityEvent FallEvent = new UnityEvent();
+	[HideInInspector] public UnityEvent PlayerFalled = new UnityEvent();
 
-	[HideInInspector] public UnityEvent JumpToFinish = new UnityEvent();
+	[HideInInspector] public UnityEvent JumpedToFinish = new UnityEvent();
 
-	[HideInInspector] public UnityEvent DeathEvent = new UnityEvent();
-	[HideInInspector] public UnityEvent WinEvent = new UnityEvent();
+	[HideInInspector] public UnityEvent PlayerDied = new UnityEvent();
+	[HideInInspector] public UnityEvent GameWinEvent = new UnityEvent();
 
-	[HideInInspector] public UnityEvent OnPlayerPrefsUpdated = new UnityEvent();
+	[HideInInspector] public UnityEvent PlayerPrefsUptated = new UnityEvent();
 
 	private void Awake()
 	{
