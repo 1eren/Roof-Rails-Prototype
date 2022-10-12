@@ -1,17 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable, IColorable
+public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 {
 	private Tween resetPositionTween, scaleTween;
 	[SerializeField] private float minimumStickScale = 0.1f;
-
 	public float StickSize => transform.localScale.x;
 
-
-	[SerializeField] private MeshRenderer mesh;
-	public MeshRenderer Mesh => mesh;
-
+	private MeshRenderer mesh;
+	public MeshRenderer Mesh => mesh == null ? mesh = GetComponent<MeshRenderer>() : mesh;
 	private void OnEnable()
 	{
 		GameManager.Instance.FallEvent.AddListener(Drop);
@@ -72,6 +69,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable, ICol
 
 		//reset position after small delay
 		resetPositionTween = transform.DOLocalMoveX(0, .5f).SetDelay(.5f);
+		newPart.GetComponent<MeshRenderer>().material = Mesh.material; 
 		newPart.GetComponent<IThrowable>().Throw(Vector3.Normalize(hitPoint - transform.position + Vector3.up) * 2f);
 	}
 

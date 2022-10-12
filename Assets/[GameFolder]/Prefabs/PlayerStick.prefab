@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5177533697672171724}
   - component: {fileID: 6935187453696123910}
   - component: {fileID: 8646675572591196361}
+  - component: {fileID: 5425603148930456849}
   m_Layer: 0
   m_Name: PlayerStick
   m_TagString: Untagged
@@ -97,3 +98,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumStickScale: 0.1
+--- !u!114 &5425603148930456849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880606221168674259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48db9d895309d1942a779be82957051e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorArray:
+  - color: 2
+    colorMat: {fileID: 2100000, guid: 2d549d4bbb1bab1458ae2c0441e41097, type: 2}
+  - color: 1
+    colorMat: {fileID: 2100000, guid: b18b06160e6d68242bcb92bcf92aef35, type: 2}
+  - color: 0
+    colorMat: {fileID: 2100000, guid: 6df70a745d03ff448a5a389919bbb30c, type: 2}
+  mesh: {fileID: 6935187453696123910}

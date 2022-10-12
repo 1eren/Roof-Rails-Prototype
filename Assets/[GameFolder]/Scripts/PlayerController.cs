@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
 {
 	[ReadOnly] public bool isDeath;
 	[ReadOnly] public bool isHolding;
+
 	public GameColor color;
+
 	[SerializeField] private GameObject deathParticle;
 	private void OnEnable()
 	{
@@ -16,6 +18,8 @@ public class PlayerController : MonoBehaviour
 		GameManager.Instance.DeathEvent.AddListener(Death);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.AddListener(Run);
+
+		ColorManager.Instance.OnColorChange.AddListener((x) => color = x);
 	}
 	private void OnDisable()
 	{
@@ -24,6 +28,8 @@ public class PlayerController : MonoBehaviour
 		GameManager.Instance.DeathEvent.RemoveListener(Death);
 		EventManager.OnEnteredRail.AddListener(Hold);
 		EventManager.OnExitRail.RemoveListener(Run);
+
+		ColorManager.Instance.OnColorChange.RemoveListener((x) => color = x);
 	}
 
 	public void Hold(RailController rail)
