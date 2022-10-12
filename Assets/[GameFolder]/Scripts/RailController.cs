@@ -12,7 +12,7 @@ public class RailController : MonoBehaviour
 	public bool isFinishStick;
 
 	private bool isTriggered;
-	[ReadOnly] public float railWidth;
+	[HideInInspector] public float railWidth;
 	//distance and scale will be updated instantly when the distance& scale changes on inspector
 	private void SetSticksAttributes()
 	{
