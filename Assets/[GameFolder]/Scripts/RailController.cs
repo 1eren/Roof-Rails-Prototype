@@ -32,25 +32,25 @@ public class RailController : MonoBehaviour
 
 		if (stick.StickSize < distanceBetween * 2)
 		{
-			if (!isFinishStick)
-				GameManager.Instance.FallEvent.Invoke();
-			foreach (var item in GetComponentsInChildren<BoxCollider>())
-				item.enabled = false;
-			return;
+			CheckFinishStick();
 		}
 
 		float playerPosX = playerT.position.x;
 		if (playerPosX > transform.position.x + distanceBetween
 			|| playerPosX < transform.position.x - distanceBetween)
 		{
-			if (!isFinishStick)
-				GameManager.Instance.FallEvent.Invoke();
-			foreach (var item in GetComponentsInChildren<BoxCollider>())
-				item.enabled = false;
-			return;
+			CheckFinishStick();
 		}
 		EventManager.OnEnteredRail.Invoke(this);
 
+	}
+	private void CheckFinishStick()
+	{
+		if (!isFinishStick)
+			GameManager.Instance.FallEvent.Invoke();
+		foreach (var item in GetComponentsInChildren<Collider>())
+			item.enabled = !item.enabled;
+		return;
 	}
 	private void OnCollisionEnter(Collision collision)
 	{

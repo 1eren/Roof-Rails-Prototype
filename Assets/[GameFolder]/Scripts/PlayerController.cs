@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour
 					break;
 				}
 				GameManager.Instance.FallEvent.Invoke();
-				foreach (var item in rail.GetComponentsInChildren<BoxCollider>())
-					item.enabled = false;
+				foreach (var item in rail.GetComponentsInChildren<Collider>())
+					item.enabled = !item.enabled;
 				isDeath = true;
 			}
 			yield return new WaitForFixedUpdate();
