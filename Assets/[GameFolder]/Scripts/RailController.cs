@@ -22,7 +22,7 @@ public class RailController : MonoBehaviour
 			item.localScale = new Vector3(scale, item.localScale.y, item.localScale.z);
 
 			BoxCollider coll = GetComponent<BoxCollider>();
-			coll.size = new Vector3(coll.size.x, coll.size.y, 10 + scale);
+			coll.size = new Vector3(10 + scale, coll.size.y, scale);
 		}
 	}
 

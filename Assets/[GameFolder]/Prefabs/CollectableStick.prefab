@@ -98,6 +98,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  colorArray:
+  - color: 2
+    colorMat: {fileID: 2100000, guid: 2d549d4bbb1bab1458ae2c0441e41097, type: 2}
+  - color: 1
+    colorMat: {fileID: 2100000, guid: b18b06160e6d68242bcb92bcf92aef35, type: 2}
+  - color: 0
+    colorMat: {fileID: 2100000, guid: 6df70a745d03ff448a5a389919bbb30c, type: 2}
   increasingScale: 0.2
 --- !u!136 &493248637527541451
 CapsuleCollider:

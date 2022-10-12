@@ -34,7 +34,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 			return;
 		}
 		Vector3 pos = transform.position;
-		float slicingPoint = StickSize / 2f - amount;
+		float slicingPoint = StickSize / 2f;
 		CreateNewPart(amount, new Vector3(pos.x + slicingPoint, pos.y, pos.z));
 		CreateNewPart(amount, new Vector3(pos.x - slicingPoint, pos.y, pos.z));
 	}
@@ -69,7 +69,7 @@ public class PlayerStickController : MonoBehaviour, ISliceable, IThrowable
 
 		//reset position after small delay
 		resetPositionTween = transform.DOLocalMoveX(0, .5f).SetDelay(.5f);
-		newPart.GetComponent<MeshRenderer>().material = Mesh.material; 
+		newPart.GetComponent<MeshRenderer>().material = Mesh.material;
 		newPart.GetComponent<IThrowable>().Throw(Vector3.Normalize(hitPoint - transform.position + Vector3.up) * 2f);
 	}
 

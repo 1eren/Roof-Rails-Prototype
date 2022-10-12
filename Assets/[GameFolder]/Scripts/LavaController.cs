@@ -4,16 +4,16 @@ public class LavaController : MonoBehaviour
 {
     public float amount;
 
-    private float time;
+    [SerializeField]private float destroyingDestiny = 0.3f;
     private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out PlayerController player))
         {
             PlayerStickController stick = player.GetComponentInChildren<PlayerStickController>();
-            time += Time.deltaTime;
-            if (time>0.2f)
+            destroyingDestiny += Time.deltaTime;
+            if (destroyingDestiny > 0.3f)
             {
-                time = 0;
+                destroyingDestiny = 0;
                 stick.DecreaseScale(amount);
             }
         }
